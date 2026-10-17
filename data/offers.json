@@ -1,0 +1,23 @@
+[
+ {"id":"webull-premium-shares","provider":"Webull","name":"Webull","category":"brokerage","title":"10 free fractional shares + 1 month of Premium",
+  "bonusCash":null,"bonusText":"10 fractional shares (cash value not stated)","apy":3.6,"apyText":"3.60% (Premium) + 1.4% booster for 30 days on up to $10,000",
+  "boosterApy":1.4,"boosterDays":30,"boosterCap":10000,"minDeposit":100,"annualFee":null,"feeText":"Premium free for 1 month; price after that not stated on this page",
+  "toEarn":"Open an account and make an initial deposit of $100 or more; claim in My Rewards","catch":"5.0% APY is 3.60% Premium plus a 1.4% booster for only 30 days on up to $10,000. Joint, IRA, futures and entity accounts are excluded.",
+  "stateExclusions":null,"status":"verified","termsUrl":"https://www.webull.com/activity",
+  "termsQuote":"Make an initial deposit of $100 or more. Unlock Premium access, your 5.0% APY*, and 10 free fractional shares!","lastChecked":"2026-10-16T19:20:00-05:00"},
+ {"id":"robinhood-gold-cash","provider":"Robinhood","name":"Robinhood Gold","category":"cash","title":"3.6% APY on eligible brokerage cash with Gold",
+  "bonusCash":null,"bonusText":"None","apy":3.6,"apyText":"3.6% as of Sept 17, 2026 (Gold members, High-Yield Cash enabled)","minDeposit":null,"annualFee":50,"feeText":"$50/yr or $5/mo (30-day free trial)",
+  "toEarn":"Subscribe to Gold and enable the High-Yield Cash program","catch":"The rate needs the paid Gold subscription; a margin balance means no cash earns interest.",
+  "stateExclusions":null,"status":"verified","termsUrl":"https://robinhood.com/us/en/support/articles/gold-overview/",
+  "termsQuote":"The APY is 3.6% for Robinhood Gold members as of Sept 17, 2026.","lastChecked":"2026-10-16T19:20:00-05:00"},
+ {"id":"public-hyca-core","provider":"Public","name":"Public High-Yield Cash","category":"cash","title":"3.30% APY, no fee",
+  "bonusCash":null,"bonusText":"None","apy":3.3,"apyText":"3.30% as of 09/17/2026 (no subscription)","minDeposit":0,"annualFee":0,"feeText":"$0 (3.75% needs Reserve at $20/mo)",
+  "toEarn":"Open a High-Yield Cash Account; no minimum","catch":"The 3.75% headline needs the $20/month Reserve subscription; 3.30% is the no-fee rate.",
+  "stateExclusions":null,"status":"verified","termsUrl":"https://public.com/high-yield-cash-account",
+  "termsQuote":"Or earn 3.30% APY with no fees. As of 09/17/2026. Rate may change.","lastChecked":"2026-10-16T19:20:00-05:00"},
+ {"id":"coinbase-one-usdc","provider":"Coinbase","name":"Coinbase USDC rewards","category":"crypto","title":"3.75% rewards on USDC with Coinbase One",
+  "bonusCash":null,"bonusText":"None","apy":3.75,"apyText":"3.75% rewards (Coinbase One only; varies by region)","minDeposit":1,"annualFee":59.88,"feeText":"Coinbase One from $4.99/mo (≥ $59.88/yr)",
+  "toEarn":"Join Coinbase One, buy and hold USDC (from $1)","catch":"Rewards only with paid Coinbase One; availability depends on location; USDC is a stablecoin, not a bank deposit.",
+  "stateExclusions":null,"status":"verified","termsUrl":"https://www.coinbase.com/usdc",
+  "termsQuote":"USDC rewards are exclusively available to Coinbase One members, with plans starting at $4.99/month.","lastChecked":"2026-10-16T19:20:00-05:00"}
+]
