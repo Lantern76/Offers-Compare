@@ -44,7 +44,7 @@ details summary{min-height:44px;display:flex;align-items:center;cursor:pointer;c
 input,select,button{font:inherit;min-height:44px;border:1px solid var(--ink);background:var(--surface);color:var(--ink);padding:.4rem .6rem}input[type=number]{font-family:'IBM Plex Mono',monospace;width:10rem}
 button{background:var(--ink);color:#fff;font-weight:600;cursor:pointer}input:focus-visible,select:focus-visible,button:focus-visible,.bar a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .formula{margin:.5rem 0 0;font-size:.88rem;color:var(--muted)}.calc .note{margin:.3rem 0 0;font-size:.82rem;color:var(--muted)}
-.filters{display:flex;flex-wrap:wrap;gap:.6rem;align-items:flex-end;margin:0 0 .8rem}.fnote{background:var(--ambertint);border:1px solid var(--amber);color:var(--amber);padding:.45rem .8rem;margin:0 0 .8rem;font-size:.9rem;font-weight:600}
+.filters{display:flex;flex-wrap:wrap;gap:.6rem;align-items:flex-end;margin:0 0 .8rem}.fnote{background:var(--surface);border:1px solid #D6D9DD;color:#4F5966;padding:.45rem .8rem;margin:0 0 .8rem;font-size:.9rem;font-weight:400}
 .low{color:var(--muted);font:400 .8rem 'Libre Franklin',sans-serif;white-space:normal}.tax{display:block;font:400 .7rem 'Libre Franklin',sans-serif;color:var(--muted)}
 .fee-ns{display:block;font:400 .7rem 'Libre Franklin',sans-serif;color:var(--muted);white-space:normal}
 footer p{margin:.4rem 0}.combos{font-size:.85rem}.combos a{margin-right:.6rem;display:inline-block}
@@ -55,3 +55,11 @@ td.neg{background:var(--ambertint);color:var(--amber)}.neg-l{display:block;font:
 @media(min-width:641px){table.nostates .stc{display:none}}
 td,tbody th,thead th{padding-left:.45rem;padding-right:.45rem}td.earn,td.fee{min-width:13rem}td.bonus{min-width:6rem}td.when{min-width:8.5rem}
 .snote{margin:-.4rem 0 .8rem;font-size:.85rem;color:var(--muted)}tr[hidden]{display:none!important}
+td.unk{background:var(--surface)}.upto{display:block;font:400 .72rem 'Libre Franklin',sans-serif;color:var(--muted)}.unk-l{display:table;margin-left:auto;margin-top:.2rem;font:600 .72rem 'Libre Franklin',sans-serif;color:var(--amber);background:var(--ambertint);border:1px solid var(--amber);padding:0 .35rem;border-radius:2px;white-space:nowrap}
+.money{display:flex;align-items:stretch}.money .cur{display:flex;align-items:center;padding:0 .55rem;border:1px solid var(--ink);border-right:0;background:var(--paper);color:var(--ink);font-family:'IBM Plex Mono',monospace}
+#deposit{font-family:'IBM Plex Mono',monospace;width:9rem}
+.ml{display:none}
+@media(max-width:640px){tbody th .ml{display:block;font-weight:400;font-size:.8rem;color:var(--ink);line-height:1.35;margin-top:.2rem}}
+@media(min-width:641px){table.nostatus .st,table.nowhen .when{display:none}}
+@media(max-width:640px){table.nostatus td.st{display:none}}
+@media(max-width:640px){.unk-l{white-space:normal;font-size:.66rem;padding:0 .2rem;text-align:center}}
