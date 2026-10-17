@@ -4,13 +4,13 @@
 var v=(o.bonusCash||0)+d*(o.apy||0)/100;if(o.boosterApy)v+=Math.min(d,o.boosterCap||d)*o.boosterApy/100*(o.boosterDays||0)/365;
 var feeKnown=o.annualFee!=null;if(feeKnown)v-=o.annualFee;return{value:Math.round(v*100)/100,feeKnown:feeKnown}}
 function money(v){return(v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
-// Order: known fee & net >= 0 (desc), unstated fee (desc), known fee & net < 0 (desc), deposit too low.
+// Ties break by id (ascending) so the order is stable. Order: known fee & net >= 0 (desc), unstated fee (desc), known fee & net < 0 (desc), deposit too low.
 // BEST (net) = highest non-negative net with a known fee. BEST appears only in the Net, 1 yr column.
 // Rows with an unstated fee are never BEST or "Highest".
 function ok(r){return r&&!r.low&&r.feeKnown&&r.value>=0}
 function rank(list,d){var res={};list.forEach(function(o){res[o.id]=net(o,d)});
 var key=function(r){return r.low?3:!r.feeKnown?1:r.value<0?2:0};
-var order=list.slice().sort(function(a,b){var ra=res[a.id],rb=res[b.id];return key(ra)-key(rb)||((rb.value||0)-(ra.value||0))});
+var order=list.slice().sort(function(a,b){var ra=res[a.id],rb=res[b.id];return key(ra)-key(rb)||((rb.value||0)-(ra.value||0))||(a.id<b.id?-1:a.id>b.id?1:0)});
 var best=null;order.forEach(function(o){if(best==null&&ok(res[o.id]))best=o.id});
 return{res:res,order:order,best:best}}
 function cls(id,R){var r=R.res[id];return 'n b net'+(id===R.best?' best':'')+(!r.low&&r.value<0?' neg':'')+(!r.low&&!r.feeKnown?' unk':'')}
