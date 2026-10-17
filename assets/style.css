@@ -54,3 +54,4 @@ td.neg{background:var(--ambertint);color:var(--amber)}.neg-l{display:block;font:
 .hi-l{display:block;font:600 .72rem 'Libre Franklin',sans-serif;color:var(--muted);letter-spacing:.02em;white-space:normal}
 @media(min-width:641px){table.nostates .stc{display:none}}
 td,tbody th,thead th{padding-left:.45rem;padding-right:.45rem}td.earn,td.fee{min-width:13rem}td.bonus{min-width:6rem}td.when{min-width:8.5rem}
+.snote{margin:-.4rem 0 .8rem;font-size:.85rem;color:var(--muted)}tr[hidden]{display:none!important}
