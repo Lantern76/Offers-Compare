@@ -27,14 +27,12 @@ const pct=v=>v==null?NS:v.toFixed(2)+'%',usd=v=>v==null?NS:'$'+v.toLocaleString(
 const states=o=>o.stateExclusions==null?NS:o.stateExclusions.length?e(o.stateExclusions.join(', '))+' excluded':'None listed';
 const CAT={brokerage:'Brokerage',crypto:'Crypto exchange',cash:'Cash APY'};
 const page=({rel,type,min,st,list,note})=>{
-const res=Object.fromEntries(list.map(o=>[o.id,C.net(o,EX)]));let best=null;for(const o of list){const r=res[o.id];if(!r.low&&r.feeKnown&&(best==null||r.value>res[best].value))best=o.id}
-const rows=[...list].sort((a,b)=>(res[b.id].value??-1e9)-(res[a.id].value??-1e9));
-const netCell=o=>{const r=res[o.id];if(r.low)return `<td class="n net"><span class="low">Deposit too low</span></td>`;
-return `<td class="n net${o.id===best?' best':''}">${C.money(r.value)}${r.feeKnown?'':'<span class="fee-ns">before fee (not stated)</span>'}${o.id===best?'<span class="best-l">Best</span><span class="tax">taxable</span>':''}</td>`};
+const R=C.rank(list,EX),rows=R.order,noStates=list.every(o=>o.stateExclusions==null);
+const netCell=o=>`<td class="${C.cls(o.id,R)}">${C.cell(o.id,R)}</td>`;
 const bestApy=Math.max(...list.map(o=>o.apy||0));
 const tr=o=>`<tr data-offer="${e(JSON.stringify({id:o.id,bonusCash:o.bonusCash,apy:o.apy,boosterApy:o.boosterApy,boosterDays:o.boosterDays,boosterCap:o.boosterCap,minDeposit:o.minDeposit,annualFee:o.annualFee}))}"><th scope="row">${e(o.name)}<small>${CAT[o.category]}</small></th>
-${netCell(o).replace('class="n net','class="n b net')}<td class="n a${o.apy===bestApy?' best':''}">${pct(o.apy)}${o.apy===bestApy?'<span class="best-l">Best</span>':''}</td><td class="bonus">${e(o.bonusText)}</td>
-<td class="earn">${e(o.toEarn)}</td><td class="fee">${e(o.feeText)}</td><td class="mind n">${usd(o.minDeposit)}</td><td>${states(o)}</td><td class="st">${chip(o)}</td><td class="when">${when(o)}</td><td class="terms"><a href="${e(o.termsUrl)}" rel="noopener">Terms ↗<span class="sr"> for ${e(o.name)} (official site)</span></a></td>
+${netCell(o)}<td class="n a${o.apy===bestApy?' best':''}">${pct(o.apy)}${o.apy===bestApy?'<span class="best-l">Best</span>':''}</td><td class="bonus">${e(o.bonusText)}</td>
+<td class="earn">${e(o.toEarn)}</td><td class="fee">${e(o.feeShort||o.feeText)}</td><td class="mind n">${usd(o.minDeposit)}</td><td class="stc">${states(o)}</td><td class="st">${chip(o)}</td><td class="when">${when(o)}</td><td class="terms"><a href="${e(o.termsUrl)}" rel="noopener">Terms ↗<span class="sr"> for ${e(o.name)} (official site)</span></a></td>
 <td class="more"><details><summary>Details</summary><dl><dt>Bonus</dt><dd>${e(o.bonusText)}</dd><dt>To earn it</dt><dd>${e(o.toEarn)}</dd><dt>Fee</dt><dd>${e(o.feeText)}</dd><dt>Min deposit</dt><dd>${usd(o.minDeposit)}</dd><dt>States</dt><dd>${states(o)}</dd><dt>Checked</dt><dd>${when(o)}</dd><dt>Terms</dt><dd><a href="${e(o.termsUrl)}" rel="noopener">Official terms ↗</a></dd></dl></details></td></tr>`;
 const sel=(n,opts,cur)=>`<select name="${n}" id="f-${n}">${Object.entries(opts).map(([v,l])=>`<option value="${v}"${String(cur)===v?' selected':''}>${e(l)}</option>`).join('')}</select>`;
 const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -49,15 +47,15 @@ const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta nam
 <section class="calc" aria-labelledby="calc-h"><h2 id="calc-h">What would I actually get?</h2>
 <form id="calc-form" action="${rel}" method="get"><label for="deposit">Deposit ($)<input id="deposit" name="deposit" type="number" inputmode="decimal" min="0" step="1" value="${EX}"></label><button type="submit">Calculate</button></form>
 <p class="formula">Net, 1 yr = cash bonus + (deposit × APY for one year) + any short promo booster − one year of fees. Parts the terms don't give a dollar value for (like free shares) count as $0.</p>
-<p class="note" id="calc-at" aria-live="polite">Showing net value for a $5,000 example deposit. (With JavaScript off, the figures stay at this example.)</p></section>
+<p class="note" id="calc-at" aria-live="polite">Showing net value for a $5,000 deposit; board sorted by Net, 1 yr at the $5,000 deposit, highest first.</p><p class="note">$5,000 is an example; with JavaScript off, the figures stay at this example.</p></section>
 <nav class="bar" aria-label="Account type"><span class="lbl">Show:</span>${Object.entries(TYPES).map(([k,l])=>`<a href="${rel}${k==='all'?'':`f/${k}-any/`}"${k===type&&min==='any'?' aria-current="page"':''}>${l==='All'?'All':l}</a>`).join('')}</nav>
 <form class="filters" action="/" method="get" aria-label="Eligibility filters"><label for="f-state">State${sel('state',{any:'Any state',...Object.fromEntries(STATES.map(s=>[s,s]))},st)}</label><label for="f-type">Account type${sel('type',TYPES,type)}</label><label for="f-min">Min deposit${sel('min',MINS,min)}</label><button type="submit">Apply</button></form>
 ${note?`<p class="fnote" role="status">${note}</p>`:''}
 <section class="board" id="board" tabindex="-1"><div class="checked"><span><strong>All offers checked</strong> ${when(latest)}</span><span>Sources: each offer's official terms page only.</span></div>
-<table><caption><strong>Showing ${rows.length} of ${D.length} offers</strong> · sorted by Net, 1 yr at the $5,000 example deposit, highest first</caption>
-<thead><tr><th scope="col">Offer</th><th scope="col" class="n">Net, 1 yr</th><th scope="col" class="n">Cash APY</th><th scope="col">Sign-up bonus</th><th scope="col">To earn it</th><th scope="col">Fee</th><th scope="col" class="n">Min deposit</th><th scope="col">State exclusions</th><th scope="col">Status</th><th scope="col">Last checked</th><th scope="col">Terms</th></tr></thead>
-<tbody>${rows.map(tr).join('\n')}</tbody></table>
-<p class="foot">Times in Central Time (CT), UTC in parentheses. "Not stated" = the official terms don't say. Green marks the best value in a column, nothing else. Offers with an unstated fee can't be BEST.</p></section>
+<div class="tw"><table${noStates?' class="nostates"':''}><caption><strong>Showing ${rows.length} of ${D.length} offers</strong> · <span id="sort-at">sorted by Net, 1 yr at the $5,000 deposit, highest first</span></caption>
+<thead><tr><th scope="col">Offer</th><th scope="col" class="n">Net, 1 yr</th><th scope="col" class="n">Cash APY</th><th scope="col">Sign-up bonus</th><th scope="col">To earn it</th><th scope="col">Fee</th><th scope="col" class="n">Min deposit</th><th scope="col" class="stc">State exclusions</th><th scope="col">Status</th><th scope="col">Last checked</th><th scope="col">Terms</th></tr></thead>
+<tbody>${rows.map(tr).join('\n')}</tbody></table></div>
+<p class="foot">Times in Central Time (CT), UTC in parentheses. "Not stated" = the official terms don't say. Green marks the best value in a column, nothing else. Offers with an unstated fee can't be BEST.${noStates?' State limits: not stated by any offer.':''}</p></section>
 <p class="combos">Quick filters (no JavaScript needed): ${['brokerage','crypto','cash'].flatMap(t=>Object.keys(MINS).filter(m=>m!=='any').map(m=>`<a href="${rel}f/${t}-${m}/">${TYPES[t]} ${e(MINS[m])}</a>`)).join('')}</p></main>
 <footer class="wrap"><a href="${rel}how-we-rank/">How we rank</a><a href="${rel}offers.json">Offers JSON</a>
 <p><strong>Not financial advice.</strong> Offers change; check the official terms before you sign up. The official terms page is the source of truth.</p>

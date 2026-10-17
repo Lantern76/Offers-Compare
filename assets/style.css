@@ -49,3 +49,8 @@ button{background:var(--ink);color:#fff;font-weight:600;cursor:pointer}input:foc
 .fee-ns{display:block;font:400 .7rem 'Libre Franklin',sans-serif;color:var(--muted);white-space:normal}
 footer p{margin:.4rem 0}.combos{font-size:.85rem}.combos a{margin-right:.6rem;display:inline-block}
 a.logo{color:var(--ink);text-decoration:none}
+.wrap{max-width:1228px}.tw{overflow-x:auto}td.earn,td.fee{min-width:14rem;max-width:none}
+td.neg{background:var(--ambertint);color:var(--amber)}.neg-l{display:block;font:600 .7rem 'Libre Franklin',sans-serif;color:var(--amber);white-space:normal}
+.hi-l{display:block;font:600 .72rem 'Libre Franklin',sans-serif;color:var(--muted);letter-spacing:.02em;white-space:normal}
+@media(min-width:641px){table.nostates .stc{display:none}}
+td,tbody th,thead th{padding-left:.45rem;padding-right:.45rem}td.earn,td.fee{min-width:13rem}td.bonus{min-width:6rem}td.when{min-width:8.5rem}
