@@ -1,0 +1,286 @@
+{
+ "rewrites": [
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "all"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "1000"
+    }
+   ],
+   "destination": "/f/all-1000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "all"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "5000"
+    }
+   ],
+   "destination": "/f/all-5000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "all"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "25000"
+    }
+   ],
+   "destination": "/f/all-25000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "brokerage"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "1000"
+    }
+   ],
+   "destination": "/f/brokerage-1000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "brokerage"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "5000"
+    }
+   ],
+   "destination": "/f/brokerage-5000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "brokerage"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "25000"
+    }
+   ],
+   "destination": "/f/brokerage-25000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "brokerage"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "any"
+    }
+   ],
+   "destination": "/f/brokerage-any/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "crypto"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "1000"
+    }
+   ],
+   "destination": "/f/crypto-1000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "crypto"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "5000"
+    }
+   ],
+   "destination": "/f/crypto-5000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "crypto"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "25000"
+    }
+   ],
+   "destination": "/f/crypto-25000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "crypto"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "any"
+    }
+   ],
+   "destination": "/f/crypto-any/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "cash"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "1000"
+    }
+   ],
+   "destination": "/f/cash-1000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "cash"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "5000"
+    }
+   ],
+   "destination": "/f/cash-5000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "cash"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "25000"
+    }
+   ],
+   "destination": "/f/cash-25000/"
+  },
+  {
+   "source": "/",
+   "has": [
+    {
+     "type": "query",
+     "key": "type",
+     "value": "cash"
+    },
+    {
+     "type": "query",
+     "key": "min",
+     "value": "any"
+    }
+   ],
+   "destination": "/f/cash-any/"
+  }
+ ],
+ "headers": [
+  {
+   "source": "/(.*)",
+   "headers": [
+    {
+     "key": "Content-Security-Policy",
+     "value": "default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"
+    },
+    {
+     "key": "Permissions-Policy",
+     "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+    },
+    {
+     "key": "Strict-Transport-Security",
+     "value": "max-age=63072000; includeSubDomains"
+    },
+    {
+     "key": "X-Frame-Options",
+     "value": "DENY"
+    },
+    {
+     "key": "X-Robots-Tag",
+     "value": "noindex"
+    },
+    {
+     "key": "X-Content-Type-Options",
+     "value": "nosniff"
+    },
+    {
+     "key": "Referrer-Policy",
+     "value": "strict-origin-when-cross-origin"
+    }
+   ]
+  }
+ ],
+ "git": {
+  "deploymentEnabled": {
+   "main": false
+  }
+ },
+ "outputDirectory": "dist",
+ "buildCommand": "node build.js"
+}
