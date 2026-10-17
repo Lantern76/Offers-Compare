@@ -63,3 +63,4 @@ td.unk{background:var(--surface)}.upto{display:block;font:400 .72rem 'Libre Fran
 @media(min-width:641px){table.nostatus .st,table.nowhen .when{display:none}}
 @media(max-width:640px){table.nostatus td.st{display:none}}
 @media(max-width:640px){.unk-l{white-space:normal;font-size:.66rem;padding:0 .2rem;text-align:center}}
+.err{margin:.4rem 0 0;color:#8A1C1C;font-weight:600;font-size:.88rem}#deposit[aria-invalid]{border-color:#8A1C1C;outline:2px solid #8A1C1C}

@@ -8,13 +8,20 @@ var form=document.getElementById('calc-form'),inp=document.getElementById('depos
 var MINL={any:'Any','1000':'≤ $1k','5000':'≤ $5k','25000':'≤ $25k'},TL={all:'All',brokerage:'Brokerage',crypto:'Crypto',cash:'Cash'};
 function field(k){return ff?ff.elements.namedItem(k):null}
 function val(k,def){var f=field(k);return f?f.value:def}
-function deposit(){var d=parseFloat(String(inp.value).replace(/[^0-9.]/g,''));return d>=0&&isFinite(d)?d:5000}
-function fmt(){var raw=String(inp.value).replace(/[^0-9.]/g,'');if(raw==='')return;var p=raw.split('.'),i=(p[0]||'0').replace(/^0+(?=\d)/,'');
+var err=document.getElementById('dep-err');
+// Valid: digits with optional comma grouping and at most one dot (2 decimals). '-', 'e', repeated dots etc. are rejected, not stripped.
+function check(){var v=String(inp.value).trim(),m='';
+if(v==='')m='Enter a deposit amount, like 5,000.';else if(/-/.test(v))m='Deposit can\'t be negative. Enter an amount like 5,000.';
+else if(/e/i.test(v))m='Use plain digits, not "e" notation. Enter an amount like 5,000.';else if((v.match(/\./g)||[]).length>1)m='Use only one decimal point, like 5,000.50.';
+else if(!/^\d[\d,]*(\.\d{0,2})?$/.test(v))m='Use digits only, with an optional comma and up to 2 decimals, like 5,000.50.';
+if(err){err.hidden=!m;err.textContent=m}if(m)inp.setAttribute('aria-invalid','true');else inp.removeAttribute('aria-invalid');return !m}
+function deposit(){var d=parseFloat(String(inp.value).replace(/,/g,''));return d>=0&&isFinite(d)?d:5000}
+function fmt(){if(!check())return;var raw=String(inp.value).replace(/,/g,'');var p=raw.split('.'),i=(p[0]||'0').replace(/^0+(?=\d)/,'');
 inp.value=i.replace(/\B(?=(\d{3})+(?!\d))/g,',')+(p.length>1?'.'+p.slice(1).join('').slice(0,2):'')}
 function fill(td,parts){while(td.firstChild)td.removeChild(td.firstChild);parts.forEach(function(p){if(!p.c){td.appendChild(document.createTextNode(p.t));return}
 var s=document.createElement('span');s.className=p.c;s.textContent=p.t;td.appendChild(s)})}
 function visible(){return data.filter(function(o){return !byId[o.id].hidden})}
-function calc(){var d=deposit(),vis=visible(),R=C.rank(vis,d),RA=C.rank(data,d),seen={};
+function calc(){if(!check())return;var d=deposit(),vis=visible(),R=C.rank(vis,d),RA=C.rank(data,d),seen={};
 var put=function(o,Rx){var tr=byId[o.id],td=tr.querySelector('td.net');td.className=C.cls(o.id,Rx);fill(td,C.parts(o.id,Rx));
 tb.appendChild(tr);seen[o.id]=1};
 R.order.forEach(function(o){put(o,R)});var RH={res:RA.res,order:RA.order,best:null};RA.order.forEach(function(o){if(!seen[o.id])put(o,RH)});
@@ -27,10 +34,10 @@ var n=document.getElementById('fnote'),sh=document.getElementById('showing'),act
 if(sh)sh.textContent='Showing '+show.length+' of '+data.length+' offers';
 if(n){n.hidden=!active;n.textContent=none?'No offers fit; showing all.':'Filtered: '+TL[t]+' · min deposit '+MINL[m]+(st!=='any'?' · '+st:'')+'. Offers with an unstated minimum are included.'}
 calc()}
-form.addEventListener('submit',function(e){e.preventDefault();fmt();calc()});inp.addEventListener('input',calc);inp.addEventListener('blur',fmt);
+form.addEventListener('submit',function(e){e.preventDefault();if(!check()){inp.focus();return}fmt();calc()});inp.addEventListener('input',function(){if(check())calc()});inp.addEventListener('blur',fmt);
 if(ff){var KEYS=['state','type','min'].filter(field),q=new URLSearchParams(location.search);
-KEYS.forEach(function(k){var v=q.get(k),f=field(k);if(v&&[].some.call(f.options,function(o){return o.value===v}))f.value=v});
+KEYS.forEach(function(k){var v=q.get(k),f=field(k);if(!v)return;if(f.options?[].some.call(f.options,function(o){return o.value===v}):/^(any|[A-Z]{2})$/.test(v))f.value=v});
 ff.addEventListener('submit',function(e){e.preventDefault();filt();var u=new URLSearchParams();KEYS.forEach(function(k){u.set(k,val(k))});history.replaceState(null,'','/?'+u)});
-KEYS.forEach(function(k){field(k).addEventListener('change',filt)})}
+KEYS.forEach(function(k){if(field(k).type!=='hidden')field(k).addEventListener('change',filt)})}
 var dq=new URLSearchParams(location.search).get('deposit');if(dq!=null&&dq!==''){inp.value=dq;fmt()}
 filt();if(!ff)calc()})();
