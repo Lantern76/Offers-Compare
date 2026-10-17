@@ -15,10 +15,9 @@ function fill(td,parts){while(td.firstChild)td.removeChild(td.firstChild);parts.
 var s=document.createElement('span');s.className=p.c;s.textContent=p.t;td.appendChild(s)})}
 function visible(){return data.filter(function(o){return !byId[o.id].hidden})}
 function calc(){var d=deposit(),vis=visible(),R=C.rank(vis,d),RA=C.rank(data,d),seen={};
-var put=function(o,Rx){var tr=byId[o.id],td=tr.querySelector('td.net'),a=tr.querySelector('td.a');td.className=C.cls(o.id,Rx);fill(td,C.parts(o.id,Rx));
-var ab=!!Rx.apyBest[o.id];a.classList.toggle('best',ab);var l=a.querySelector('.best-l');if(ab&&!l){l=document.createElement('span');l.className='best-l';l.textContent='Best';a.appendChild(l)}else if(!ab&&l)a.removeChild(l);
+var put=function(o,Rx){var tr=byId[o.id],td=tr.querySelector('td.net');td.className=C.cls(o.id,Rx);fill(td,C.parts(o.id,Rx));
 tb.appendChild(tr);seen[o.id]=1};
-R.order.forEach(function(o){put(o,R)});var RH={res:RA.res,order:RA.order,best:null,apyBest:{}};RA.order.forEach(function(o){if(!seen[o.id])put(o,RH)});
+R.order.forEach(function(o){put(o,R)});var RH={res:RA.res,order:RA.order,best:null};RA.order.forEach(function(o){if(!seen[o.id])put(o,RH)});
 var t=C.status(d),s=document.getElementById('calc-at'),c=document.getElementById('sort-at');if(s)s.textContent=t;if(c)c.textContent=t.split('; ')[1].replace(/\.$/,'')}
 // Filters: same rules as build.js. State hides only explicit exclusions; empty result shows everything with a note.
 function filt(){if(!ff)return;var t=val('type','all'),m=val('min','any'),st=val('state','any');
