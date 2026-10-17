@@ -19,7 +19,7 @@ else if(/e/i.test(v))m='Use plain digits, not "e" notation. Enter an amount like
 else if(!/^\d[\d,]*(\.\d{0,2})?$/.test(v))m='Use digits only, with an optional comma and up to 2 decimals, like 5,000.50.';
 if(err){err.hidden=!m;err.textContent=m}
 // Error is announced once via the existing polite live region (#calc-at); .err is the visible, aria-describedby text.
-if(m){inp.setAttribute('aria-invalid','true');if(stat)stat.textContent=m+' Still showing '+usd(last)+'.'}
+if(m){inp.setAttribute('aria-invalid','true');if(stat){while(stat.firstChild)stat.removeChild(stat.firstChild);var h=document.createElement('span');h.className='sr';h.textContent=m+' ';stat.appendChild(h);stat.appendChild(document.createTextNode('Still showing '+usd(last)+'.'))}}
 else{var was=inp.hasAttribute('aria-invalid');inp.removeAttribute('aria-invalid');if(was&&stat)stat.textContent=C.status(last)}return !m}
 function deposit(){var d=parseFloat(clean().replace(/,/g,''));return d>=0&&isFinite(d)?d:5000}
 function fmt(){if(!check())return;var raw=clean().replace(/,/g,'');var p=raw.split('.'),i=(p[0]||'0').replace(/^0+(?=\d)/,'');
