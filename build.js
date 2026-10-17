@@ -33,7 +33,7 @@ const anyStates=D.some(o=>o.stateExclusions!=null),allVerified=D.every(o=>o.stat
 const TITLE='Account bonuses and cash rates, side by side',SUB='Brokerage, crypto and cash accounts: what you get, what it costs, what you must do to earn it.';
 // SITE_URL: the public origin used for canonical, og:url, sitemap and robots.txt. Explicit setting.
 // The default below is a PLACEHOLDER (the real domain isn't decided). Set SITE_URL=https://your.domain when building for production.
-const SITE_URL_PLACEHOLDER='https://offers-compare.vercel.app';
+const SITE_URL_PLACEHOLDER='https://offerscompared.vercel.app';
 // Indexing: every page is noindex for V1. Only indexable pages go in the sitemap.
 const NOINDEX=true;
 // Indexable builds need the real origin: fail instead of shipping placeholder canonicals. noindex builds warn and use the placeholder.
